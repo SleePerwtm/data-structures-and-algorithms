@@ -4,4 +4,14 @@ BasedOnStyle: LLVM
 IndentWidth: 4
 DerivePointerAlignment: false
 PointerAlignment: Left
+
+# 配置代码格式化规则，用于实现连续参数和连续声明的对齐功能
+# AlignAfterOpenBracket: Align - 设置在开括号后的参数对齐方式为对齐模式
+# AlignConsecutiveAssignments: true - 启用连续赋值语句的对齐功能
+# AlignConsecutiveDeclarations: true - 启用连续声明语句的对齐功能
+
+# 添加以下配置以实现连续参数、连续声明对齐
+# AlignAfterOpenBracket: Align
+# AlignConsecutiveAssignments: true
+# AlignConsecutiveDeclarations: true
 ---
