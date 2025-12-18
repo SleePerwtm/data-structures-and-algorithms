@@ -1,38 +1,33 @@
+#include <iostream>
 #include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
 
-typedef struct LNode* List;
-typedef double ElementType;
-typedef int Index;
+using ElementType = double;
+using Index = int;
 
-#define MAXSIZE (int)1e4
-#define bool _Bool
-#define true 1
-#define false 0
+const int kMaxSize = (int)1e4; // 线性表最大长度
 
 struct LNode {
-    ElementType data[MAXSIZE]; // 储存的数据
-    int last;                  // 最后一个元素的下标
+    ElementType data[kMaxSize]; // 储存的数据
+    int last;                   // 最后一个元素的下标
 };
 
-struct LNode L; // 线性表
-List ptrL;      // 指向线性表的指针
+using List = LNode*;
 
 /* 初始化一个空线性表 */
 List makeEmpty() {
     List ptrL;
-    ptrL = malloc(sizeof(struct LNode));
+    ptrL = new LNode;
     ptrL->last = -1;
     return ptrL;
 }
 
 /* 根据索引 K 返回相应元素 */
 ElementType findKth(Index K, List ptrL) {
-    if (K >= 0 && K <= ptrL->last)
-        return ptrL->data[K];
-    printf("The position is invalid\n");
-    return NAN; /* 对于 double 类型，返回 NaN 表示错误 */
+    if (K < 0 || K > ptrL->last) {
+        std::cout << "The position is invalid\n";
+        return NAN; /* 对于 double 类型，返回 NaN 表示错误 */
+    }
+    return ptrL->data[K];
 }
 
 /* 在线性表中查找 X 第一次出现的位置索引 */
@@ -47,12 +42,12 @@ Index find(ElementType X, List ptrL) {
 
 /* 在下标 i 处插入 X 元素 */
 bool insertByIndex(ElementType X, Index i, List ptrL) {
-    if (ptrL->last == MAXSIZE - 1) { /* 表空间已满 */
-        printf("The list is full\n");
+    if (ptrL->last == kMaxSize - 1) { /* 表空间已满 */
+        std::cout << "The list is full\n";
         return false;
     }
     if (i < 0 || i > ptrL->last + 1) { /* 插入位置不合法 */
-        printf("The position is invalid\n");
+        std::cout << "The position is invalid\n";
         return false;
     }
     for (int j = ptrL->last; j >= i; --j) {
@@ -66,7 +61,7 @@ bool insertByIndex(ElementType X, Index i, List ptrL) {
 /* 删除指定下标 i 的元素 */
 bool deleteByIndex(Index i, List ptrL) {
     if (i < 0 || i > ptrL->last) { /* 删除位置不合法 */
-        printf("The position is invalid\n");
+        std::cout << "The position is invalid\n";
         return false;
     }
     for (int j = i; j < ptrL->last; ++j) {
